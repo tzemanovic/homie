@@ -1,2 +1,4 @@
-bashrc
+vim-rc
 ======
+
+vim settings etc.
