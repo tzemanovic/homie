@@ -1,0 +1,18 @@
+[submodule ".vim/bundle/elm-vim"]
+	path = .vim/bundle/elm-vim
+	url = https://github.com/ElmCast/elm-vim.git
+[submodule ".vim/bundle/nerdtree"]
+	path = .vim/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule ".vim/bundle/nerdtree-git-plugin"]
+	path = .vim/bundle/nerdtree-git-plugin
+	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule ".vim/bundle/vim-auto-save"]
+	path = .vim/bundle/vim-auto-save
+	url = https://github.com/vim-scripts/vim-auto-save.git
+[submodule ".vim/bundle/vim-colors-solarized"]
+	path = .vim/bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule ".vim/bundle/vim-numbertoggle"]
+	path = .vim/bundle/vim-numbertoggle
+	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
