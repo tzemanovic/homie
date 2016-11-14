@@ -115,7 +115,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 10
+                               :size 11
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -264,7 +264,6 @@ you should place your code here."
     (add-to-list 'company-backends 'company-elm)) ; add elm autocomplete backend
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
   (add-to-list 'exec-path "~/.local/bin/") ; add path to executables
-  (turn-on-fci-mode) ; show fill-column
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
