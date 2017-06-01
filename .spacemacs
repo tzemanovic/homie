@@ -18,6 +18,12 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     php
+     vagrant
+     ansible
+     yaml
+     python
+     ruby
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -52,13 +58,14 @@ values."
               haskell-stylish-on-save t
               )
      scala
+     rust
+     django
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(;intero
-                                      company-ghci)
+   dotspacemacs-additional-packages '(intero company-ghci)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -125,7 +132,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 11
+                               :size 10
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -274,14 +281,9 @@ you should place your code here."
   (global-company-mode)
   (global-flycheck-mode)
   (setq company-idle-delay 0)
+  (turn-on-fci-mode) ; always show column indicator
 
   (require 'company-ghci)
-
-  ;; Navigation
-  (bind-key* "ESC <left>"  'evil-window-left)
-  (bind-key* "ESC <right>" 'evil-window-right)
-  (bind-key* "ESC <up>"    'evil-window-up)
-  (bind-key* "ESC <down>"  'evil-window-down)
 
   (setq neo-theme 'arrow) ; NeoTree theme
   (global-linum-mode) ; show line numbers
@@ -290,6 +292,11 @@ you should place your code here."
   (add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
   (add-to-list 'exec-path "~/.local/bin/") ; add path to executables
 
+
+  ;; Term
+  (bind-key* "M-a c"         (lambda () (interactive)
+                               (ansi-term "/bin/bash") (spacemacs/toggle-line-numbers-off)))
+
   ;; Helm
   (bind-key*  "M-f M-f"	'helm-projectile)
   (bind-key*  "M-F M-F"	'helm-ag)
@@ -297,6 +304,65 @@ you should place your code here."
   (unbind-key "<f3>")
   (bind-key*  "<f3>"    'helm-semantic-or-imenu)
   (bind-key*  "<f4>"    'magit-status)
+
+
+  ;; HASKELL
+  (add-hook 'haskell-mode-hook (lambda ()
+                                 (message "haskell-mode-hook")
+                                 (intero-mode)
+                                 (push '(company-ghci :with company-yasnippet :with company-dabbrev) company-backends-haskell-mode)
+                                 (interactive-haskell-mode)
+                                 (turn-on-haskell-indentation)
+                                 (hindent-mode)
+                                 (setq haskell-stylish-on-save t) ;; override haskell layer
+                                 ))
+
+  (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+    "ht" 'haskell-process-do-type
+    "l"  'hayoo
+    "t"  'intero-type-at
+    "T"  'spacemacs/haskell-process-do-type-on-prev-line
+    "r"  'haskell-process-load-file
+    "i"  'intero-info
+    "I"  'haskell-do-info
+    "g"  'intero-goto-definition
+    )
+
+  ;; Rust
+  (setq rust-format-on-save t)
+
+  ;; Python
+  ; format on save
+  (setq-default dotspacemacs-configuration-layers
+                '((python :variables python-enable-yapf-format-on-save t)))
+
+  ; sort imports on save
+  (setq-default dotspacemacs-configuration-layers
+                '((python :variables python-sort-imports-on-save t)))
+
+  ;; HTML
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+
+  )
+
+
+(defun haskell-do-info (cPos cEnd)
+  "Bring repl and do :info under the current cursor word"
+  (interactive "r")
+  (let (inputStr oldPos endSymbol)
+    ;; grab the string
+    (setq oldPos cPos)
+    (setq endSymbol (cdr (bounds-of-thing-at-point 'symbol)))
+    (skip-syntax-backward "^(, ")
+    (setq inputStr (buffer-substring-no-properties (point) endSymbol))
+
+    (goto-char oldPos)
+    (haskell-interactive-switch)
+    (haskell-interactive-mode-run-expr (format ":info %s" inputStr))
+    (haskell-interactive-switch-back)
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -308,7 +374,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (uuidgen toc-org pug-mode org-plus-contrib org-bullets mwim livid-mode skewer-mode simple-httpd link-hint hlint-refactor hide-comnt helm-hoogle git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff dumb-jump column-enforce-mode js2-refactor multiple-cursors json-mode company-tern dash-functional web-beautify json-snatcher json-reformat js2-mode js-doc intero tern company-ghci coffee-mode ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package tagedit spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shm scss-mode sass-mode restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines orgit open-junk-file noflet neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ indent-guide ido-vertical-mode hungry-delete hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu ensime emmet-mode elm-mode elisp-slime-nav diff-hl define-word company-web company-statistics company-quickhelp company-ghc company-cabal cmm-mode clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (pony-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode vagrant-tramp vagrant rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby jinja2-mode ansible-doc ansible yaml-mode uuidgen toc-org pug-mode org-plus-contrib org-bullets mwim livid-mode skewer-mode simple-httpd link-hint hlint-refactor hide-comnt helm-hoogle git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff dumb-jump column-enforce-mode js2-refactor multiple-cursors json-mode company-tern dash-functional web-beautify json-snatcher json-reformat js2-mode js-doc intero tern company-ghci coffee-mode ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package tagedit spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shm scss-mode sass-mode restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines orgit open-junk-file noflet neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ indent-guide ido-vertical-mode hungry-delete hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu ensime emmet-mode elm-mode elisp-slime-nav diff-hl define-word company-web company-statistics company-quickhelp company-ghc company-cabal cmm-mode clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
