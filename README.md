@@ -1,4 +1,4 @@
-vim-rc
+homie
 ======
 
 vim settings etc.
