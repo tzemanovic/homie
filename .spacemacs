@@ -48,7 +48,8 @@ values."
      ;; (syntax-checking :variables
      ;;                 syntax-checking-enable-tooltips nil)
      version-control
-     elm
+     (elm :variables
+          elm-format-on-save t)
      (haskell :variables
               haskell-enable-ghc-mod-support nil
               ;; haskell-enable-ghci-ng-support t
@@ -60,12 +61,20 @@ values."
      scala
      rust
      django
+     (python :variables
+             ; format on save - off
+             python-enable-yapf-format-on-save nil
+             ; sort imports on save
+             python-sort-imports-on-save t)
      )
+
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(intero company-ghci)
+   dotspacemacs-additional-packages '(intero
+                                      company-ghci
+                                      magithub)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -328,41 +337,46 @@ you should place your code here."
     "g"  'intero-goto-definition
     )
 
+  (defun haskell-do-info (cPos cEnd)
+    "Bring repl and do :info under the current cursor word"
+    (interactive "r")
+    (let (inputStr oldPos endSymbol)
+      ;; grab the string
+      (setq oldPos cPos)
+      (setq endSymbol (cdr (bounds-of-thing-at-point 'symbol)))
+      (skip-syntax-backward "^(, ")
+      (setq inputStr (buffer-substring-no-properties (point) endSymbol))
+
+      (goto-char oldPos)
+      (haskell-interactive-switch)
+      (haskell-interactive-mode-run-expr (format ":info %s" inputStr))
+      (haskell-interactive-switch-back)
+      )
+    )
+
   ;; Rust
   (setq rust-format-on-save t)
-
-  ;; Python
-  ; format on save
-  (setq-default dotspacemacs-configuration-layers
-                '((python :variables python-enable-yapf-format-on-save t)))
-
-  ; sort imports on save
-  (setq-default dotspacemacs-configuration-layers
-                '((python :variables python-sort-imports-on-save t)))
 
   ;; HTML
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
   (setq web-mode-code-indent-offset 2)
 
-  )
+  ;; Django
+  ;; web-mode-set-engine django for *.dtl
+  (add-to-list 'auto-mode-alist '("\\.dtl?\\'" . web-mode))
+  (setq web-mode-engines-alist
+        '(("django"    . "\\.dtl\\'"))
+        )
 
+  ;; try to fix anaconda issue https://github.com/proofit404/anaconda-mode/issues/164
+  (remove-hook 'anaconda-mode-response-read-fail-hook
+               'anaconda-mode-show-unreadable-response)
 
-(defun haskell-do-info (cPos cEnd)
-  "Bring repl and do :info under the current cursor word"
-  (interactive "r")
-  (let (inputStr oldPos endSymbol)
-    ;; grab the string
-    (setq oldPos cPos)
-    (setq endSymbol (cdr (bounds-of-thing-at-point 'symbol)))
-    (skip-syntax-backward "^(, ")
-    (setq inputStr (buffer-substring-no-properties (point) endSymbol))
-
-    (goto-char oldPos)
-    (haskell-interactive-switch)
-    (haskell-interactive-mode-run-expr (format ":info %s" inputStr))
-    (haskell-interactive-switch-back)
-    )
+  ;; Magithub
+  (use-package magithub
+    :after magit
+    :config (magithub-feature-autoinject t))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -374,7 +388,7 @@ you should place your code here."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (pony-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode vagrant-tramp vagrant rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby jinja2-mode ansible-doc ansible yaml-mode uuidgen toc-org pug-mode org-plus-contrib org-bullets mwim livid-mode skewer-mode simple-httpd link-hint hlint-refactor hide-comnt helm-hoogle git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff dumb-jump column-enforce-mode js2-refactor multiple-cursors json-mode company-tern dash-functional web-beautify json-snatcher json-reformat js2-mode js-doc intero tern company-ghci coffee-mode ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package tagedit spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shm scss-mode sass-mode restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines orgit open-junk-file noflet neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ indent-guide ido-vertical-mode hungry-delete hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu ensime emmet-mode elm-mode elisp-slime-nav diff-hl define-word company-web company-statistics company-quickhelp company-ghc company-cabal cmm-mode clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (magithub ghub+ apiwrap ghub yapfify unfill toml-mode racer pyvenv pytest pyenv-mode py-isort pip-requirements markdown-mode live-py-mode hy-mode helm-pydoc haml-mode gitignore-mode fringe-helper git-gutter+ git-gutter fuzzy flycheck-rust seq flycheck magit magit-popup git-commit with-editor sbt-mode scala-mode cython-mode web-completion-data pos-tip ghc haskell-mode company-ansible company-anaconda company cargo rust-mode yasnippet anaconda-mode pythonic auto-complete pony-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode vagrant-tramp vagrant rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby jinja2-mode ansible-doc ansible yaml-mode uuidgen toc-org pug-mode org-plus-contrib org-bullets mwim livid-mode skewer-mode simple-httpd link-hint hlint-refactor hide-comnt helm-hoogle git-link flyspell-correct-helm flyspell-correct eyebrowse evil-visual-mark-mode evil-unimpaired evil-ediff dumb-jump column-enforce-mode js2-refactor multiple-cursors json-mode company-tern dash-functional web-beautify json-snatcher json-reformat js2-mode js-doc intero tern company-ghci coffee-mode ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe use-package tagedit spacemacs-theme spaceline solarized-theme smooth-scrolling smeargle slim-mode shm scss-mode sass-mode restart-emacs rainbow-delimiters quelpa popwin persp-mode pcre2el paradox page-break-lines orgit open-junk-file noflet neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode jade-mode info+ indent-guide ido-vertical-mode hungry-delete hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets google-translate golden-ratio gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flycheck-haskell flycheck-elm flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu ensime emmet-mode elm-mode elisp-slime-nav diff-hl define-word company-web company-statistics company-quickhelp company-ghc company-cabal cmm-mode clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
