@@ -8,7 +8,7 @@ vim settings etc.
 ```
 cd
 git init .
-git remote add -t \* -f origin https://github.com/maseek/vimrc-etc.git
+git remote add -t \* -f origin https://github.com/tzemanovic/homie.git
 git checkout master
 ```
 
