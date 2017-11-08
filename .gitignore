@@ -4,6 +4,7 @@
 .babel.json
 .bash_history
 .bash_sessions/
+.cargo/
 .CFUserTextEncoding
 .cocoapods/
 .config/.config/git/ignore
@@ -22,14 +23,17 @@
 .lesshst
 .local/share/
 .local/bin/
+.multirust
 .ngrok2/
 .node_repl_history
 .node-gyp/
 .npm/
 .oracle_jre_usage/
 .pgpass
+.profile
 .psql_history
 .putty/
+.rustup/
 .ssh/
 !.ssh/config
 .stack/
