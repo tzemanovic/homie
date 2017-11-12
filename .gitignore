@@ -1,4 +1,5 @@
 *.padl
+.adobe/
 .android/
 .atom/
 .babel.json
@@ -15,6 +16,7 @@
 .emacs.d/
 .emulator_console_auth_token
 .ethash/
+.ghc/
 .gitconfig
 .gnupg_pre_2.1/
 .gnupg/
@@ -43,7 +45,7 @@
 .vim/
 .viminfo
 Applications/
-Desktop/.localized
+Desktop/
 dev/
 Documents/
 Downloads/
