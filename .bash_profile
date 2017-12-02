@@ -22,7 +22,8 @@ alias ll="exa -lF"
 export PATH="$HOME/.cargo/bin:$PATH"
 # export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src
 
-# export PATH="$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+# Postgres
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
 # Py virtualenvwrapper
 # export WORKON_HOME=$HOME/.virtualenvs
