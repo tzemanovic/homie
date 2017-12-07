@@ -5,6 +5,7 @@
 .babel.json
 .bash_history
 .bash_sessions/
+.cabal/
 .cargo/
 .CFUserTextEncoding
 .cocoapods/
@@ -30,7 +31,9 @@
 .node_repl_history
 .node-gyp/
 .npm/
+.openshot_qt/
 .oracle_jre_usage/
+.pgadmin/
 .pgpass
 .profile
 .psql_history
