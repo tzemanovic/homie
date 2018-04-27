@@ -35,3 +35,4 @@ shopt -s histappend
 export HISTIGNORE=ls:ll:"ls -altr":"ls -alt":la:l:pwd:exit:mc:su:df:clear:ps:h:history:"ls -al"
 export HISTCONTROL=erasedups:ignoreboth
 export PROMPT_COMMAND='history -a'
+
