@@ -37,6 +37,7 @@ values."
      (haskell :variables
               haskell-enable-hindent-style "johan-tibell")
      javascript
+     react
      (rust :variables
            rust-format-on-save t)
      (elm :variables
