@@ -36,3 +36,4 @@ export HISTIGNORE=ls:ll:"ls -altr":"ls -alt":la:l:pwd:exit:mc:su:df:clear:ps:h:h
 export HISTCONTROL=erasedups:ignoreboth
 export PROMPT_COMMAND='history -a'
 
+export RIPGREP_CONFIG_PATH=~/.ripgreprc
