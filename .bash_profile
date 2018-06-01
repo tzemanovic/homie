@@ -37,3 +37,4 @@ export HISTCONTROL=erasedups:ignoreboth
 export PROMPT_COMMAND='history -a'
 
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
+
