@@ -31,44 +31,51 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     csv
-     ansible
-     swift
+     ;; Programming languages
+     (elm :variables
+          elm-format-on-save t)
+     emacs-lisp
      (haskell :variables
               haskell-enable-hindent-style "johan-tibell")
      javascript
-     react
-     (rust :variables
-           rust-format-on-save t)
-     (elm :variables
-          elm-format-on-save t)
-     django
      (python :variables
              ; format on save - off
              python-enable-yapf-format-on-save nil
              ; sort imports on save
              python-sort-imports-on-save t)
-
-     markdown
-     html
-     yaml
-     emacs-lisp
-     nixos
-     git
-     helm
-     better-defaults
-     (auto-completion :variables
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-enable-sort-by-usage t
-                      auto-completion-enable-snippets-in-popup t)
-     spell-checking
-     syntax-checking
-     version-control
-     org
+     (rust :variables
+           rust-format-on-save t)
      (shell :variables
             shell-default-shell 'ansi-term
             shell-default-height 30
             shell-default-position 'bottom)
+     swift
+
+     ;; Mark-up langauges
+     csv
+     html
+     latex
+     markdown
+     org
+     yaml
+
+     ;; Tools
+     ansible
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-sort-by-usage t
+                      auto-completion-enable-snippets-in-popup t)
+     better-defaults
+     git
+     helm
+     nixos
+     spell-checking
+     syntax-checking
+     version-control
+
+     ;; Other
+     django
+     react
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
