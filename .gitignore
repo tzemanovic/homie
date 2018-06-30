@@ -1,6 +1,7 @@
 *.padl
 .adobe/
 .android/
+.aspell.conf
 .atom/
 .authinfo
 .babel.json
@@ -30,6 +31,7 @@
 .gradle/
 .hoogle/
 .itmstransporter/
+.lambdabot
 .lesshst
 .ipfs/
 .local/share/
@@ -42,6 +44,7 @@
 .npm/
 .openshot_qt/
 .oracle_jre_usage/
+.pboy.toml
 .pgadmin/
 .pgpass
 .profile
@@ -59,6 +62,7 @@
 Applications/
 Desktop/
 dev/
+ved/
 Documents/
 Downloads/
 Library/
