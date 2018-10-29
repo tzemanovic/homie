@@ -1,7 +1,7 @@
 { pkgs }:
 {
   # NOTE This is now setup in nix-darwin.
-  # 
+  #
   # packageOverrides = pkgs: {
   #   /* Adapted from https://alpmestan.com/posts/2017-09-06-quick-haskell-hacking-with-nix.html
   #    * Use 'nix-haskell' to try a haskell package in nix-shell. E.g.:
