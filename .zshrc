@@ -145,3 +145,4 @@ export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$NIX_PATH
 
 # install from https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip
 POWERLEVEL9K_MODE='nerdfont-complete'
+# using with tango dark theme in iterm2
