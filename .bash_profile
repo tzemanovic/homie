@@ -15,9 +15,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # better ls
 alias ll="exa -lF"
 
-# Android Studio tools
-# export PATH="$PATH:/Users/taebles/Library/Android/sdk/platform-tools"
-
 # Rust and cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 # export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src
@@ -32,8 +29,18 @@ export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 
 # Better `history`
 shopt -s histappend
-export HISTIGNORE=ls:ll:"ls -altr":"ls -alt":la:l:pwd:exit:mc:su:df:clear:ps:h:history:"ls -al"
+export HISTIGNORE=pwd:exit:mc:su:df:clear:ps:h:history
 export HISTCONTROL=erasedups:ignoreboth
 export PROMPT_COMMAND='history -a'
 
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
+
+alias npm-shell="nix-shell -p nodejs-9_x"
+
+# fzf keybindings
+[ -f /nix/store/l5jwsdxkswm1zlxfkm5wjqfi3jlf097c-fzf-0.17.3-bin/share/fzf/key-bindings.bash ] && source /nix/store/l5jwsdxkswm1zlxfkm5wjqfi3jlf097c-fzf-0.17.3-bin/share/fzf/key-bindings.bash
+# fzf use ripgrep
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+
+# Android sdk platform tools (e.g. adb)
+export PATH=/Users/tzemanovic/Library/Android/sdk/platform-tools:$PATH
