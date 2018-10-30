@@ -42,14 +42,22 @@ in
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
+  # To rebuild run:
+  # $ darwin-rebuild changelog
   environment.systemPackages =
     [ # my nix utils
       nix-haskell
       nix-npm-install
 
-      # shell
+      # zsh
       pkgs.zsh
       pkgs.zsh-completions
+      pkgs.oh-my-zsh
+      pkgs.nix-zsh-completions
+      pkgs.zsh-syntax-highlighting
+      pkgs.zsh-autosuggestions
+      # TODO powerlevel9k doesn't work - install using instructions from https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#option-2-install-for-oh-my-zsh
+      pkgs.zsh-powerlevel9k
 
       # nix utils
       pkgs.nix-prefetch-scripts
@@ -57,16 +65,20 @@ in
       pkgs.nixpkgs-lint
 
       # shell utils
-      pkgs.vim
       pkgs.exa
+      # TODO fd doesn't work - install via `nix-env -i fd`
+      pkgs.fd
       pkgs.fzf
       pkgs.git
+      pkgs.jq
       pkgs.pandoc
       pkgs.ripgrep
       pkgs.tokei
-      pkgs.jq
+      pkgs.vim
+      pkgs.curl
+      pkgs.tree
 
-      # emacs and it's layers' deps
+      # emacs and it's layers' dependencies
       pkgs.emacs25Macport
       # spell-checking
       pkgs.aspell
@@ -79,8 +91,18 @@ in
       # coding
       pkgs.elmPackages.elm
       pkgs.elmPackages.elm-format
-      pkgs.nodejs-8_x
+      pkgs.nodejs-10_x
+
+      # fonts
+      pkgs.powerline-fonts # used in zsh
     ];
+
+  # powerlevel9k - https://github.com/bhilburn/powerlevel9k
+  programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
+
+  # zsh-autosuggestions - https://github.com/NixOS/nixpkgs/blob/92a047a6c4d46a222e9c323ea85882d0a7a13af8/pkgs/shells/zsh/zsh-autosuggestions/default.nix#L3
+  # TODO > error: The option `programs.zsh.enableAutoSuggestions' defined in `/Users/tzemanovic/.nixpkgs/darwin-configuration.nix' does not exist.
+  # programs.zsh.enableAutoSuggestions = true;
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
