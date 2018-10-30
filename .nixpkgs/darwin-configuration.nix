@@ -66,7 +66,7 @@ in
 
       # shell utils
       pkgs.exa
-      # TODO fd doesn't work - install via `nix-env -i fd`
+      # TODO fd doesn't work - install with `nix-env -i fd`
       pkgs.fd
       pkgs.fzf
       pkgs.git
@@ -77,6 +77,9 @@ in
       pkgs.vim
       pkgs.curl
       pkgs.tree
+      # TODO doesn't work - install with `nix-env -i htop`
+      pkgs.htop
+      pkgs.rsync
 
       # emacs and it's layers' dependencies
       pkgs.emacs25Macport
@@ -90,6 +93,7 @@ in
 
       # coding
       pkgs.elmPackages.elm
+      # elm-format doesn't work - install with `nix-env -i elm-format`
       pkgs.elmPackages.elm-format
       pkgs.nodejs-10_x
 
