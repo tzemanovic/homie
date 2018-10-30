@@ -143,3 +143,5 @@ export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
 export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$NIX_PATH
 
 
+# install from https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip
+POWERLEVEL9K_MODE='nerdfont-complete'
