@@ -66,7 +66,6 @@ in
 
       # shell utils
       pkgs.exa
-      # TODO fd doesn't work - install with `nix-env -i fd`
       pkgs.fd
       pkgs.fzf
       pkgs.git
@@ -77,7 +76,6 @@ in
       pkgs.vim
       pkgs.curl
       pkgs.tree
-      # TODO doesn't work - install with `nix-env -i htop`
       pkgs.htop
       pkgs.rsync
 
@@ -91,11 +89,16 @@ in
       pkgs.aspellDicts.en-science
       pkgs.aspellDicts.fr
 
+      # TODO clone gtd layer
+      # cd ~/.emacs.d/private
+      # git clone https://github.com/et2010/org-gtd.git gtd
+
       # coding
-      pkgs.elmPackages.elm
+      # pkgs.elmPackages.elm
       # elm-format doesn't work - install with `nix-env -i elm-format`
       pkgs.elmPackages.elm-format
       pkgs.nodejs-10_x
+      pkgs.ghc
 
       # fonts
       pkgs.powerline-fonts # used in zsh
