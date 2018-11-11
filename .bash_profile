@@ -44,3 +44,4 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,
 
 # Android sdk platform tools (e.g. adb)
 export PATH=/Users/tzemanovic/Library/Android/sdk/platform-tools:$PATH
+if [ -e /Users/tzemanovic/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/tzemanovic/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
