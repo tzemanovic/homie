@@ -67,12 +67,19 @@ in
       # shell utils
       pkgs.exa
       pkgs.fd
-      pkgs.fzf
+      # pkgs.fzf
+      # NOTE fzf from here didn't work properly, installed using:
+      # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+      # ~/.fzf/install
       pkgs.git
       pkgs.jq
-      pkgs.pandoc
+      # TODO some build error? install with `nix-env -i pandoc`
+      # pkgs.pandoc
+      # TODO silver-searcher doesn't work - install with `nix-env -i silver-searcher`
+      # pkgs.silver-searcher # ag
       pkgs.ripgrep
-      pkgs.tokei
+      # TODO some build error?
+      # pkgs.tokei
       pkgs.vim
       pkgs.curl
       pkgs.tree
@@ -80,7 +87,7 @@ in
       pkgs.rsync
 
       # emacs and it's layers' dependencies
-      pkgs.emacs25Macport
+      pkgs.emacsMacport
       # spell-checking
       pkgs.aspell
       pkgs.aspellDicts.cs
@@ -94,11 +101,15 @@ in
       # git clone https://github.com/et2010/org-gtd.git gtd
 
       # coding
+      # TODO some build error?
       # pkgs.elmPackages.elm
-      # elm-format doesn't work - install with `nix-env -i elm-format`
       pkgs.elmPackages.elm-format
-      pkgs.nodejs-10_x
       pkgs.ghc
+      # TODO doesn't work - install with `nix-env -i cabal2nix`
+      # pkgs.cabal2nix
+      # TODO cabal-install doesn't work - install with `nix-env -i cabal-install`
+      # pkgs.cabal-install
+      pkgs.nodejs-10_x
 
       # fonts
       pkgs.powerline-fonts # used in zsh
