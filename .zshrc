@@ -150,3 +150,7 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 
 # Nix
 . /Users/tzemanovic/.nix-profile/etc/profile.d/nix.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:
