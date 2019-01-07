@@ -1,0 +1,15 @@
+[magithub]
+	online = false
+[magithub "status"]
+	includeStatusHeader = false
+	includePullRequestsSection = false
+	includeIssuesSection = false
+[github]
+	user = tzemanovic
+	oauth-token = 
+[user]
+	name = tzemanovic
+	email = tzemanovic@gmail.com
+	signingkey = A605DE46DB4379F8
+[commit]
+	gpgsign = true

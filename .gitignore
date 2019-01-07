@@ -25,7 +25,6 @@
 .ethash/
 .exercism.json
 .ghc/ghci_history
-.gitconfig
 .gnupg_pre_2.1/
 .gnupg/
 .gradle/
