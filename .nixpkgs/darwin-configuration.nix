@@ -1,8 +1,6 @@
-# { config, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
-    pkgs = import <nixpkgs> {};
-
     /* Adapted from https://alpmestan.com/posts/2017-09-06-quick-haskell-hacking-with-nix.html
      * Use 'nix-haskell' to try a haskell package in nix-shell. E.g.:
      * 'nix-haskell ghc822 protolude' to try protolude package
@@ -67,16 +65,11 @@ in
       # shell utils
       pkgs.exa
       pkgs.fd
-      # pkgs.fzf
-      # NOTE fzf from here didn't work properly, installed using:
-      # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-      # ~/.fzf/install
+      pkgs.fzf
       pkgs.git
       pkgs.jq
-      # TODO some build error? install with `nix-env -i pandoc`
-      # pkgs.pandoc
-      # TODO silver-searcher doesn't work - install with `nix-env -i silver-searcher`
-      # pkgs.silver-searcher # ag
+      pkgs.pandoc
+      pkgs.silver-searcher # ag
       pkgs.ripgrep
       # TODO some build error?
       # pkgs.tokei
@@ -101,14 +94,12 @@ in
       # git clone https://github.com/et2010/org-gtd.git gtd
 
       # coding
-      # TODO some build error?
-      # pkgs.elmPackages.elm
+      pkgs.elmPackages.elm
       pkgs.elmPackages.elm-format
       pkgs.ghc
-      # TODO doesn't work - install with `nix-env -i cabal2nix`
-      # pkgs.cabal2nix
-      # TODO cabal-install doesn't work - install with `nix-env -i cabal-install`
-      # pkgs.cabal-install
+      pkgs.cabal2nix
+      pkgs.cabal-install
+      pkgs.rustup
       pkgs.nodejs-10_x
 
       # fonts
@@ -143,4 +134,8 @@ in
   # $ sysctl -n hw.ncpu
   nix.maxJobs = 8;
   nix.buildCores = 8;
+
+  # obelisk caches
+  nix.binaryCaches = [ "https://cache.nixos.org/" "https://nixcache.reflex-frp.org" ];
+  nix.binaryCachePublicKeys = [ "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI=" ];
 }

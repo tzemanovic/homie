@@ -15,9 +15,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # better ls
 alias ll="exa -lF"
 
-# Rust and cargo
-export PATH="$HOME/.cargo/bin:$PATH"
-# export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src
+# Rust and cargo# export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src
 
 # Postgres
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
