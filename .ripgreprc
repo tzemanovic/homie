@@ -1,2 +1,5 @@
 --type-add
 elm:*.{elm}*
+
+--type-add
+purs:*.{purs}*
