@@ -43,68 +43,89 @@ in
   # To rebuild run:
   # $ darwin-rebuild changelog
   environment.systemPackages =
-    [ # my nix utils
-      nix-haskell
-      nix-npm-install
-
+    (with pkgs; [
       # zsh
-      pkgs.zsh
-      pkgs.zsh-completions
-      pkgs.oh-my-zsh
-      pkgs.nix-zsh-completions
-      pkgs.zsh-syntax-highlighting
-      pkgs.zsh-autosuggestions
+      zsh
+      zsh-completions
+      oh-my-zsh
+      nix-zsh-completions
+      zsh-syntax-highlighting
+      zsh-autosuggestions
       # TODO powerlevel9k doesn't work - install using instructions from https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#option-2-install-for-oh-my-zsh
-      pkgs.zsh-powerlevel9k
+      zsh-powerlevel9k
 
       # nix utils
-      pkgs.nix-prefetch-scripts
-      pkgs.nixops
-      pkgs.nixpkgs-lint
+      nix-prefetch-scripts
+      nixops
+      nixpkgs-lint
 
       # shell utils
-      pkgs.exa
-      pkgs.fd
-      pkgs.fzf
-      pkgs.git
-      pkgs.jq
-      pkgs.pandoc
-      pkgs.silver-searcher # ag
-      pkgs.ripgrep
-      # TODO some build error?
-      # pkgs.tokei
-      pkgs.vim
-      pkgs.curl
-      pkgs.tree
-      pkgs.htop
-      pkgs.rsync
+      exa
+      fd
+      fzf
+      git
+      jq
+      pandoc
+      silver-searcher # ag
+      ripgrep
+      # TODO error
+      # tokei
+      vim
+      curl
+      tree
+      htop
+      rsync
 
       # emacs and it's layers' dependencies
-      pkgs.emacsMacport
+      emacsMacport
       # spell-checking
-      pkgs.aspell
-      pkgs.aspellDicts.cs
-      pkgs.aspellDicts.en
-      pkgs.aspellDicts.en-computers
-      pkgs.aspellDicts.en-science
-      pkgs.aspellDicts.fr
+      aspell
+      aspellDicts.cs
+      aspellDicts.en
+      aspellDicts.en-computers
+      aspellDicts.en-science
+      aspellDicts.fr
 
       # TODO clone gtd layer
       # cd ~/.emacs.d/private
       # git clone https://github.com/et2010/org-gtd.git gtd
 
-      # coding
-      pkgs.elmPackages.elm
-      pkgs.elmPackages.elm-format
-      pkgs.ghc
-      pkgs.cabal2nix
-      pkgs.cabal-install
-      pkgs.rustup
-      pkgs.nodejs-10_x
+      # Elm
+      elmPackages.elm
+      elmPackages.elm-format
+      elm2nix
+      nodePackages.elm-live
+      nodePackages.elm-oracle
+
+      # Haskell
+      ghc
+      cabal2nix
+      cabal-install
+
+      # Rust
+      rustup
+
+      # Scala
+      sbt
+      scala
+
+      # Node
+      nodejs-10_x
+      nodePackages.node2nix
+
+      # JS
+      # nodePackages.brunch
+      nodePackages.prettier
+      nodePackages.uglify-js
 
       # fonts
-      pkgs.powerline-fonts # used in zsh
-    ];
+      powerline-fonts # used in zsh
+    ] ++
+
+    [ # my nix utils
+      nix-haskell
+      nix-npm-install
+    ]);
 
   # powerlevel9k - https://github.com/bhilburn/powerlevel9k
   programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
