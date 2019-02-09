@@ -34,7 +34,7 @@ values."
      ;; Programming languages
      emacs-lisp
      (haskell :variables
-              haskell-enable-hindent-style "johan-tibell")
+              haskell-enable-hindent t)
      (elm :variables
           elm-format-on-save t)
      purescript
