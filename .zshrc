@@ -98,59 +98,44 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Nix
+. /Users/tz/.nix-profile/etc/profile.d/nix.sh
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Stack
 export PATH="$HOME/.local/bin:$PATH"
 
-
 # better ls
 alias ll="exa -lF"
-
-
-# Android Studio tools
-export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-
 
 # Rust Cargo
 export PATH="$HOME/.cargo/bin:$PATH"
 
-
-# Postgres
-export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-
-
 # ripgrep config
 export RIPGREP_CONFIG_PATH=~/.ripgreprc
 
-
 alias npm-shell="nix-shell -p nodejs-10_x"
-
 
 # fzf keybindings
 [ -f /nix/store/l5jwsdxkswm1zlxfkm5wjqfi3jlf097c-fzf-0.17.3-bin/share/fzf/key-bindings.bash ] && source /nix/store/l5jwsdxkswm1zlxfkm5wjqfi3jlf097c-fzf-0.17.3-bin/share/fzf/key-bindings.bash
 # fzf use ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 
-
 # Nix-darwin work-around for nix-darwin rebuild problem:
 #
 # $ `darwin-rebuild changelog`
 # > building the system configuration...
 # > error: file 'darwin' was not found in the Nix search path (add it using $NIX_PATH or -I)
-export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
+#export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
 # > building the system configuration...
 #> error: file 'darwin-config' was not found in the Nix search path (add it using $NIX_PATH or -I), at /nix/store/6p2b7czkwg5agdcjw5p2nd2hp80rcyrj-darwin/darwin/default.nix:1:40
-export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$NIX_PATH
-
+#export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$NIX_PATH
 
 # install from https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip
 POWERLEVEL9K_MODE='nerdfont-complete'
 # using with tango dark theme in iterm2
 
-
-# Nix
-. /Users/tzemanovic/.nix-profile/etc/profile.d/nix.sh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:
+# opam configuration
+test -r /Users/tz/.opam/opam-init/init.zsh && . /Users/tz/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
