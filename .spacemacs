@@ -37,6 +37,7 @@ values."
               haskell-enable-hindent t)
      (elm :variables
           elm-format-on-save t)
+     ocaml
      purescript
      (rust :variables
            rust-format-on-save t)
@@ -273,7 +274,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -364,6 +365,15 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (global-company-mode)
 
+  ;; OCaml
+  (add-to-list 'load-path "/Users/tz/.opam/default/share/emacs/site-lisp")
+  (require 'ocp-indent)
+  (require 'ocamlformat)
+  ;; format on save
+  (add-hook 'tuareg-mode-hook (lambda ()
+                                (define-key tuareg-mode-map (kbd "C-M-<tab>") #'ocamlformat)
+                                (add-hook 'before-save-hook #'ocamlformat-before-save)))
+
   ;; (editorconfig-mode 1) ; enable editorconfig by default
   (setq neo-theme 'arrow) ; NeoTree theme
 
@@ -448,7 +458,8 @@ you should place your code here."
   (setq org-ellipsis "⤵")
 
   (with-eval-after-load 'org
-    (setq org-startup-indented t) ; Enable `org-indent-mode' by default
+    ;; TODO disabled as it causes "error running timer ‘org-indent-initialize-agent’ (void-function org-time-add)"
+    (setq org-startup-indented nil) ; Enable `org-indent-mode' by default
     (add-hook 'org-mode-hook #'visual-line-mode))
 
   ;; elm hack
@@ -495,7 +506,7 @@ you should place your code here."
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(package-selected-packages
    (quote
-    (afternoon-theme pandoc-mode ox-pandoc treepy graphql restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well nlinum-relative nlinum magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht editorconfig company-auctex auctex nix-mode helm-nixos-options company-nixos-options nixos-options solarized-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot ghub let-alist csv-mode swift-mode jinja2-mode intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal company-ansible cmm-mode ansible-doc ansible toml-mode racer flycheck-rust seq cargo rust-mode yapfify yaml-mode web-mode web-beautify unfill tagedit smeargle slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pony-mode pip-requirements orgit mwim magit-gitflow livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode helm-pydoc helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip flycheck-elm flycheck evil-magit magit magit-popup git-commit with-editor emmet-mode elm-mode diff-hl cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-quickhelp pos-tip company-anaconda company coffee-mode auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete mmm-mode markdown-toc markdown-mode gh-md ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (utop tuareg caml ocp-indent merlin sql-indent psci purescript-mode psc-ide noflet lv transient ensime sbt-mode scala-mode reformatter disaster company-c-headers cmake-mode clang-format boxquote bbdb afternoon-theme pandoc-mode ox-pandoc treepy graphql restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well nlinum-relative nlinum magit-gh-pulls github-search github-clone github-browse-file gist gh marshal logito pcache ht editorconfig company-auctex auctex nix-mode helm-nixos-options company-nixos-options nixos-options solarized-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download htmlize gnuplot ghub let-alist csv-mode swift-mode jinja2-mode intero hlint-refactor hindent helm-hoogle haskell-snippets flycheck-haskell company-ghci company-ghc ghc haskell-mode company-cabal company-ansible cmm-mode ansible-doc ansible toml-mode racer flycheck-rust seq cargo rust-mode yapfify yaml-mode web-mode web-beautify unfill tagedit smeargle slim-mode scss-mode sass-mode pyvenv pytest pyenv-mode py-isort pug-mode pony-mode pip-requirements orgit mwim magit-gitflow livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc hy-mode helm-pydoc helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip flycheck-elm flycheck evil-magit magit magit-popup git-commit with-editor emmet-mode elm-mode diff-hl cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-quickhelp pos-tip company-anaconda company coffee-mode auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete mmm-mode markdown-toc markdown-mode gh-md ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(safe-local-variable-values
    (quote
     ((haskell-process-use-ghci . t)
