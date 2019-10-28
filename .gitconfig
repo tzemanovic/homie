@@ -10,6 +10,6 @@
 [user]
 	name = Tomáš Zemanovič
 	email = tzemanovic@gmail.com
-	signingkey = A605DE46DB4379F8
+	signingkey = 21A3AA0097EBB047
 [commit]
 	gpgsign = true
