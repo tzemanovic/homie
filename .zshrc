@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/tzemanovic/.oh-my-zsh"
+export ZSH="/Users/tz/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -27,8 +27,14 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT="true"
+
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -63,9 +69,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -101,6 +105,16 @@ source $ZSH/oh-my-zsh.sh
 # Nix
 . /Users/tz/.nix-profile/etc/profile.d/nix.sh
 
+# Nix-darwin work-around for nix-darwin rebuild problem:
+#
+# $ `darwin-rebuild changelog`
+# > building the system configuration...
+# > error: file 'darwin' was not found in the Nix search path (add it using $NIX_PATH or -I)
+#export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
+# > building the system configuration...
+#> error: file 'darwin-config' was not found in the Nix search path (add it using $NIX_PATH or -I), at /nix/store/6p2b7czkwg5agdcjw5p2nd2hp80rcyrj-darwin/darwin/default.nix:1:40
+#export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$NIX_PATH
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -122,16 +136,6 @@ alias npm-shell="nix-shell -p nodejs-10_x"
 [ -f /nix/store/l5jwsdxkswm1zlxfkm5wjqfi3jlf097c-fzf-0.17.3-bin/share/fzf/key-bindings.bash ] && source /nix/store/l5jwsdxkswm1zlxfkm5wjqfi3jlf097c-fzf-0.17.3-bin/share/fzf/key-bindings.bash
 # fzf use ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
-
-# Nix-darwin work-around for nix-darwin rebuild problem:
-#
-# $ `darwin-rebuild changelog`
-# > building the system configuration...
-# > error: file 'darwin' was not found in the Nix search path (add it using $NIX_PATH or -I)
-#export NIX_PATH=$HOME/.nix-defexpr/channels:$NIX_PATH
-# > building the system configuration...
-#> error: file 'darwin-config' was not found in the Nix search path (add it using $NIX_PATH or -I), at /nix/store/6p2b7czkwg5agdcjw5p2nd2hp80rcyrj-darwin/darwin/default.nix:1:40
-#export NIX_PATH=darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$NIX_PATH
 
 # install from https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/FiraCode.zip
 POWERLEVEL9K_MODE='nerdfont-complete'
