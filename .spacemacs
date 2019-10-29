@@ -365,9 +365,11 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (global-company-mode)
 
+  ;; Treemacs
+  (setq treemacs--icon-size 16)
+
   ;; OCaml
-  (add-to-list 'load-path "/Users/tz/.opam/default/share/emacs/site-lisp")
-  (require 'ocp-indent)
+  ;; (require 'ocp-indent)
   (require 'ocamlformat)
   ;; format on save
   (add-hook 'tuareg-mode-hook (lambda ()
