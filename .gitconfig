@@ -13,3 +13,5 @@
 	signingkey = 21A3AA0097EBB047
 [commit]
 	gpgsign = true
+[core]
+	excludesfile = /Users/tz/.global-gitignore
