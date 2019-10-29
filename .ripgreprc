@@ -1,5 +1,10 @@
+--glob=!TAGS
+
 --type-add
 elm:*.{elm}*
 
 --type-add
 purs:*.{purs}*
+
+--type-add
+mlx:*.{ml,mli}*
