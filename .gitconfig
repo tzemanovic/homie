@@ -22,31 +22,18 @@
         lg='git log --graph --oneline --decorate --all'
 
         a = add
-        ap = add -p
         aa = add .
         ac = !git add -A && git commit -m
-        c = commit --verbose
-        ca = commit -a --verbose
-        cm = commit -m
-        cam = commit -a -m
-        m = commit --amend --verbose
-        cp = cherry-pick
-
-        d = diff
-        ds = diff --stat
-        dc = diff --cached
-        a = add
         ap = add -p
-        aa = add .
         c = commit --verbose
         ca = commit -a --verbose
-        cm = commit -m
         cam = commit -a -m
-        m = commit --amend --verbose
-
+        cm = commit -m
+        cp = cherry-pick
         d = diff
-        ds = diff --stat
         dc = diff --cached
+        ds = diff --stat
+        m = commit --amend --verbose
 
         s = status -s
         co = checkout
