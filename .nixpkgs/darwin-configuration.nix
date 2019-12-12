@@ -1,6 +1,15 @@
 { config, pkgs, ... }:
-
 let
+    inherit (pkgs) aspellWithDicts;
+
+    my-aspell = aspellWithDicts (d: [
+      d.en
+      d.cs
+      d.en-computers
+      d.en-science
+      d.fr
+    ]);
+
     /* Adapted from https://alpmestan.com/posts/2017-09-06-quick-haskell-hacking-with-nix.html
      * Use 'nix-haskell' to try a haskell package in nix-shell. E.g.:
      * 'nix-haskell ghc822 protolude' to try protolude package
@@ -60,6 +69,7 @@ in
       nixpkgs-lint
 
       # shell utils
+      tmux
       exa
       fd
       fzf
@@ -68,23 +78,18 @@ in
       pandoc
       silver-searcher # ag
       ripgrep
-      # TODO error
-      # tokei
+      tokei
       vim
       curl
       tree
       htop
       rsync
+      rename
 
       # emacs and it's layers' dependencies
       emacsMacport
       # spell-checking
-      aspell
-      aspellDicts.cs
-      aspellDicts.en
-      aspellDicts.en-computers
-      aspellDicts.en-science
-      aspellDicts.fr
+      my-aspell
 
       # TODO clone gtd layer
       # cd ~/.emacs.d/private
