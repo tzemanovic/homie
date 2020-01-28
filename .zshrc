@@ -64,7 +64,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-export FZF_BASE=/usr/local/bin
+export FZF_BASE=/usr/local/opt/fzf
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -141,7 +141,8 @@ export RIPGREP_CONFIG_PATH=~/.ripgreprc
 alias npm-shell="nix-shell -p nodejs-10_x"
 
 # fzf keybindings
-[ -f /nix/store/l5jwsdxkswm1zlxfkm5wjqfi3jlf097c-fzf-0.17.3-bin/share/fzf/key-bindings.bash ] && source /nix/store/l5jwsdxkswm1zlxfkm5wjqfi3jlf097c-fzf-0.17.3-bin/share/fzf/key-bindings.bash
+[ -f /nix/store/cpwjpi75mln2knpb6vdmflblsfyywv4h-fzf-0.18.0/share/fzf/key-bindings.zsh ] && source /nix/store/cpwjpi75mln2knpb6vdmflblsfyywv4h-fzf-0.18.0/share/fzf/key-bindings.zsh
+[ -f /nix/store/cpwjpi75mln2knpb6vdmflblsfyywv4h-fzf-0.18.0/share/fzf/completion.zsh ] && source /nix/store/cpwjpi75mln2knpb6vdmflblsfyywv4h-fzf-0.18.0/share/fzf/completion.zsh
 # fzf use ripgrep
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 
