@@ -60,8 +60,8 @@ in
       nix-zsh-completions
       zsh-syntax-highlighting
       zsh-autosuggestions
-      # TODO powerlevel9k doesn't work - install using instructions from https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#option-2-install-for-oh-my-zsh
-      zsh-powerlevel9k
+      zsh-powerlevel10k
+      alacritty
 
       # nix utils
       nix-prefetch-scripts
@@ -85,6 +85,7 @@ in
       htop
       rsync
       rename
+      bat
 
       # emacs and it's layers' dependencies
       emacsMacport
@@ -98,9 +99,10 @@ in
       # Elm
       elmPackages.elm
       elmPackages.elm-format
+      elmPackages.elm-live
+      elmPackages.elm-language-server
+      elmPackages.elm-test
       elm2nix
-      nodePackages.elm-live
-      nodePackages.elm-oracle
 
       # Haskell
       ghc
@@ -125,19 +127,11 @@ in
 
       # fonts
       powerline-fonts # used in zsh
-    ] ++
 
-    [ # my nix utils
+      # my nix utils
       nix-haskell
       nix-npm-install
     ]);
-
-  # powerlevel9k - https://github.com/bhilburn/powerlevel9k
-  programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel9k}/share/zsh-powerlevel9k/powerlevel9k.zsh-theme";
-
-  # zsh-autosuggestions - https://github.com/NixOS/nixpkgs/blob/92a047a6c4d46a222e9c323ea85882d0a7a13af8/pkgs/shells/zsh/zsh-autosuggestions/default.nix#L3
-  # TODO > error: The option `programs.zsh.enableAutoSuggestions' defined in `/Users/tzemanovic/.nixpkgs/darwin-configuration.nix' does not exist.
-  # programs.zsh.enableAutoSuggestions = true;
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
@@ -151,6 +145,12 @@ in
   programs.bash.enable = true;
   programs.zsh.enable = true;
   # programs.fish.enable = true;
+
+  programs.zsh.promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+  # programs.zsh.autosuggestions.enable = true;
+  # programs.zsh.enableSyntaxHighlighting = true;
+  # programs.zsh.ohMyZsh.enable = true;
+  # programs.zsh.ohMyZsh.plugins = [ "extract" "fzf" "git" "tmux" "vi-mode" ];
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
