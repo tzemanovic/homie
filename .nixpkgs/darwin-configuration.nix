@@ -40,8 +40,7 @@ let
       tempdir="/tmp/nix-npm-install/$1"
       mkdir -p $tempdir
       pushd $tempdir
-      # '-8' switch instructs node2nix to use nodejs 8
-      ${pkgs.nodePackages.node2nix}/bin/node2nix -8 --input <( echo "[\"$1\"]")
+      ${pkgs.nodePackages.node2nix}/bin/node2nix --nodejs-10 --input <( echo "[\"$1\"]")
       nix-env --install --file .
       popd
     '';

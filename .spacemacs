@@ -68,7 +68,7 @@ values."
             shell-default-position 'bottom)
      swift
      scala
-     ;; nixos
+     nixos
 
      ;; Mark-up langauges
      csv
@@ -380,6 +380,13 @@ you should place your code here."
 
   ;; Treemacs
   (setq treemacs--icon-size 16)
+
+  ;; Idris
+  (with-eval-after-load 'idris-mode
+    (setq idris-stay-in-current-window-on-compiler-error t)
+    ;; https://github.com/idris-hackers/idris-mode/blob/acc8835449475d7cd205aba213fdd3d41c38ba40/readme.markdown#spacemacs
+    (dolist (x '("*idris-notes*" "*idris-holes*" "*idris-info*"))
+      (plist-put (cdr (assoc x popwin:special-display-config)) :noselect t)))
 
   ;; OCaml
   ;; (require 'ocp-indent)
