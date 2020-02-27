@@ -158,3 +158,6 @@ export TEZOS_CLIENT_UNSAFE_DISABLE_DISCLAIMER=Y
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# NPM
+export PATH="$HOME/mutable_node_modules/bin:$PATH"
