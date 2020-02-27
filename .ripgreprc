@@ -8,3 +8,6 @@ purs:*.{purs}*
 
 --type-add
 mlx:*.{ml,mli}*
+
+--type-add
+tz:*.{tz}*
